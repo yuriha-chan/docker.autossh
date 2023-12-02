@@ -15,6 +15,9 @@ if [ ! -z "$SSH_KEY" ]; then
 		/home/${USER}/.ssh/id_rsa
 fi
 
+chown ${USER} /home/${USER}/.ssh
+chown ${USER} /home/${USER}/.ssh/*
+
 echo "Connection Tunnel"
 exec autossh -N -M 0 \
 	${DEBUG_MODE:-} \
