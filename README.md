@@ -52,9 +52,9 @@ Defines how the tunnel will be set up:
 
 ### DEBUG_MODE
 
-**Default**: `-v`
+**Default**: (nothing)
 
-causes autossh to display its version number and exit.
+- Specify any option to `autossh`
 
 ## Contributors
 

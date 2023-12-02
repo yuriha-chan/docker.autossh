@@ -17,9 +17,10 @@ fi
 
 echo "Connection Tunnel"
 exec autossh -N -M 0 \
-	${DEBUG_MODE:-v} \
-	-o StrictHostKeyChecking=no \
-	-N $SSH_TUNNEL_HOST \
+	${DEBUG_MODE:-} \
+	-o StrictHostKeyChecking=yes \
+	-o ExitOnForwardFailure=yes \
 	${SSH_MODE:--L} *:$SSH_LOCAL_PORT:${SSH_REMOTE_HOST:-localhost}:$SSH_REMOTE_PORT \
 	-l ${SSH_HOSTUSER:-root} \
-	&& while true; do sleep 30; done;
+	$SSH_TUNNEL_HOST \
+	-t
