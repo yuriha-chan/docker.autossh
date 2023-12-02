@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  autossh:
+    restart: always
+    build: docker.autossh
+    networks:
+      - internal_network
+      - external_network
+    env_file:
+      - .config/docker.env
+    volumes:
+      - .config/autossh:/home/ssh/.ssh
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: "ssh -l $$SSH_HOSTUSER $$SSH_TUNNEL_HOST nc -w 1 localhost $$SSH_LOCAL_PORT"
+      interval: 5s
+      retries: 20
+
+networks:
+  internal_network:
+    internal: true
+  external_network:
